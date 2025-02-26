@@ -78,7 +78,7 @@ def main():
     st.markdown("✔️ Supports multiple unit conversions\n\n✔️ User-friendly interface\n\n✔️ Instant results with a single click\n\n✔️ Modern UI with enhanced styling\n\n✔️ Added Speed and Time conversions")
 
     components.html("""
-        <div style="text-align:center; margin-top:20px;">
+        <div style="text-align:center; margin-top:20px; color:green;">
             <small>Developed with ❤️ using Streamlit</small>
         </div>
     """, height=50)
