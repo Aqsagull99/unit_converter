@@ -1,6 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
+# Length Converter Function
 def length_converter(value, from_unit, to_unit):
     conversion_factors = {
         "meters": 1,
@@ -14,6 +15,7 @@ def length_converter(value, from_unit, to_unit):
     }
     return value * conversion_factors[to_unit] / conversion_factors[from_unit]
 
+# Weight Converter Function
 def weight_converter(value, from_unit, to_unit):
     conversion_factors = {
         "kilograms": 1,
@@ -23,6 +25,7 @@ def weight_converter(value, from_unit, to_unit):
     }
     return value * conversion_factors[to_unit] / conversion_factors[from_unit]
 
+# Temperature Converter Function
 def temperature_converter(value, from_unit, to_unit):
     if from_unit == to_unit:
         return value
@@ -33,27 +36,16 @@ def temperature_converter(value, from_unit, to_unit):
     if from_unit == "Kelvin":
         return value - 273.15 if to_unit == "Celsius" else (value - 273.15) * 9/5 + 32
 
+# Streamlit App
 def main():
     st.set_page_config(page_title="Unit Converter", page_icon="🔄", layout="centered")
-    st.markdown("""
-        <style>
-            .main { background-color: #f5f5f5; }
-            .stButton>button { background-color: #007BFF; color: white; font-size: 16px; border-radius: 10px; }
-            .stSelectbox, .stNumberInput, .stTextInput { font-size: 16px; }
-            .stRadio>div { display: flex; justify-content: center; }
-            .stTextInput, .stNumberInput { width: 100%; }
-            .image-container { text-align: center; margin-bottom: 20px; }
-        </style>
-    """, unsafe_allow_html=True)
-    
-    st.markdown('<div class="image-container"><img src="https://i.pinimg.com/736x/36/c5/cd/36c5cdd702b6a34e15754d11761d35e9.jpg" width="100%"></div>', unsafe_allow_html=True)
-    
+
     st.title("🌎 Universal Unit Converter")
-    st.write("Convert between different units of length, weight, and temperature with ease!")
-    
+    st.write("Convert between different units with ease!")
+
     category = st.radio("Select conversion type", ["Length", "Weight", "Temperature", "Speed", "Time"], horizontal=True)
     value = st.number_input("Enter value to convert", min_value=0.0, format="%.2f")
-    
+
     if category == "Length":
         from_unit = st.selectbox("From", ["meters", "kilometers", "centimeters", "millimeters", "miles", "yards", "feet", "inches"], index=0)
         to_unit = st.selectbox("To", ["meters", "kilometers", "centimeters", "millimeters", "miles", "yards", "feet", "inches"], index=1)
@@ -76,14 +68,15 @@ def main():
         to_unit = st.selectbox("To", ["seconds", "minutes", "hours", "days"], index=1)
         conversion_factors = {"seconds": 1, "minutes": 1/60, "hours": 1/3600, "days": 1/86400}
         result = value * conversion_factors[to_unit] / conversion_factors[from_unit]
-    
+
     if st.button("🔄 Convert"):
-        st.success(f"✅ Converted Value: {result:.2f} {to_unit}")
+        st.metric(label=f"Converted Value", value=f"{result:.2f} {to_unit}")
+        st.success(f"✅ {value} {from_unit} is equal to {result:.2f} {to_unit}. This conversion is based on standard mathematical formulas.")
     
     st.markdown("---")
-    st.markdown("### 🌟 Features:")
+    st.markdown("<h3 style='color:green;'>🌟 Features:</h3>", unsafe_allow_html=True)
     st.markdown("✔️ Supports multiple unit conversions\n\n✔️ User-friendly interface\n\n✔️ Instant results with a single click\n\n✔️ Modern UI with enhanced styling\n\n✔️ Added Speed and Time conversions")
-    
+
     components.html("""
         <div style="text-align:center; margin-top:20px;">
             <small>Developed with ❤️ using Streamlit</small>
@@ -92,12 +85,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
